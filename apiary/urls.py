@@ -19,5 +19,5 @@ from beehive.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', IndexView.as_view(), name="index-view")
+    path('', IndexView.as_view(), name="home")
 ]
