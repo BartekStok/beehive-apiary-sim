@@ -19,5 +19,9 @@ from beehive.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', IndexView.as_view(), name="home")
+    path('', IndexView.as_view(), name="home"),
+    path('apiary_create/', ApiaryCreateView.as_view(), name="apiary-create-form"),
+    path('beehive_create/', BeeHiveCreateView.as_view(), name="beehive-create-form"),
+    path('beefamily_create/', BeeFamilyCreateView.as_view(), name="beefamily-create-form"),
+    path('beemother_create/', BeeMotherCreateView.as_view(), name="beemother-create-form"),
 ]
