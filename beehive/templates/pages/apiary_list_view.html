@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% endblock %}
+
+{% block table %}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <h2>Lista pasiek</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nazwa pasieki</th>
+              <th>Opis</th>
+              <th>Lokalizacja</th>
+              <th>Powierzchnia</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for api in apiary %}
+            <tr>
+              <td>{{ api.id }}</td>
+                <td><a href="/apiary_view/{{ api.id }}" class="">{{ api.name }}</a></td>
+              <td>{{ api.description }}</td>
+              <td>{{ api.location }}</td>
+              <td>{{ api.area }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </main>
+{% endblock %}

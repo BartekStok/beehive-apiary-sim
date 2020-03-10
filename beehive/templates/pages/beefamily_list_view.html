@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% endblock %}
+
+{% block table %}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <h2>Lista Rodzin Pszczelich</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nazwa</th>
+              <th>Siła rodziny</th>
+              <th>Matka</th>
+              <th>Ul</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for family in beefamily %}
+            <tr>
+              <td>{{ family.id }}</td>
+                <td><a href="/beefamily_view/{{ family.id }} " class="">{{ family.name }}</a></td>
+              <td>{{ family.strength }}</td>
+              <td>{{ family.bee_mother }}</td>
+              <td>{{ family.bee_hive }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </main>
+{% endblock %}

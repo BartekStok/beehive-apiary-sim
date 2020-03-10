@@ -1,12 +1,12 @@
 BEE_HIVE_TYPES = (
-    (1, "Wielkopolski"),
-    (2, "Dadant"),
-    (3, "Warszawski"),
-    (4, "Inny"),
+    ("Wielkopolski", "Wielkopolski"),
+    ("Dadant", "Dadant"),
+    ("Warszawski", "Warszawski"),
+    ("Inny", "Inny"),
 )
 
 BEE_MOTHER_TYPES = (
-    (1, "Kraińska"),
-    (2, "Kaukaska"),
-    (3, "CT13"),
+    ("Kraińska", "Kraińska"),
+    ("Kaukaska", "Kaukaska"),
+    ("CT13", "CT13"),
 )

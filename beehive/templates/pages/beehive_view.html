@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% endblock %}
+
+{% block table %}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <h2>Lista Uli</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nazwa Ula</th>
+              <th>Typ</th>
+              <th>Pasieka</th>
+              <th>Ostatni przegląd</th>
+              <th>Ostatni zbiór</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ beehive.id }}</td>
+              <td>{{ beehive.name }}</td>
+              <td>{{ beehive.type }}</td>
+              <td>{{ beehive.apiary }}</td>
+              <td>{{ beehive.service_date }}</td>
+              <td>{{ beehive.honey_taken_date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nazwa Rodziny Pszczelej</th>
+              <th>Siła</th>
+              <th>Matka</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ beehive.beefamily.id }}</td>
+              <td>{{ beehive.beefamily.name }}</td>
+              <td>{{ beehive.beefamily.strength }}</td>
+              <td>{{ beehive.beefamily.bee_mother }}</td>
+            </tr>
+          </tbody>
+        <table class="table table-striped table-sm">
+             <thead>
+            <tr>
+              <th>#</th>
+              <th>Nazwa Matki</th>
+              <th>Rodzaj pszczoły</th>
+              <th>Wiek</th>
+              <th>Aktywna</th>
+            </tr>
+          </thead>
+            <tr>
+              <td>{{ beehive.beefamily.bee_mother.id }}</td>
+              <td>{{ beehive.beefamily.bee_mother.name }}</td>
+              <td>{{ beehive.beefamily.bee_mother.bee_type }}</td>
+              <td>{{ beehive.beefamily.bee_mother.age }}</td>
+              <td>{{ beehive.beefamily.bee_mother.active }}</td>
+            </tr>
+        </table>
+        </table>
+      </div>
+      </div>
+    </main>
+{% endblock %}
