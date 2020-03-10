@@ -1,6 +1,8 @@
 from django.forms import ModelForm, Textarea, Select
+from django import forms
 from beehive.models import Apiary, BeeHive, BeeMother, BeeFamily
 from beehive.constants import BEE_HIVE_TYPES, BEE_MOTHER_TYPES
+
 
 class ApiaryCreateForm(ModelForm):
     class Meta:
@@ -26,15 +28,24 @@ class BeeHiveCreateForm(ModelForm):
         #     'type': Select(choices=BEE_HIVE_TYPES)
         # }
 
+
 class BeeMotherCreateForm(ModelForm):
+    age = forms.DurationField(required=False)
+
     class Meta:
         model = BeeMother
         fields = ['name', 'bee_type', 'age', 'active']
-        # widgets = {
-        #     'bee_type': Select(choices=BEE_MOTHER_TYPES)
-        # }
+
 
 class BeeFamilyCreateForm(ModelForm):
+    bee_mother = forms.ModelChoiceField(
+        queryset=BeeMother.objects.filter(beefamily__bee_hive__isnull=True),
+        required=False
+    )
+    bee_hive = forms.ModelChoiceField(
+        queryset=BeeHive.objects.filter(beefamily__isnull=True)
+    )
+
     class Meta:
         model = BeeFamily
         fields = ['name', 'strength', 'bee_mother', 'bee_hive']

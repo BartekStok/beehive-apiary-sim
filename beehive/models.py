@@ -33,7 +33,7 @@ class BeeHive(TimeStampMixin):
 class BeeMother(TimeStampMixin):
     name = models.CharField(max_length=64)
     bee_type = models.CharField(max_length=64, choices=BEE_MOTHER_TYPES)
-    age = models.DurationField(auto_created=True)
+    age = models.DurationField(default=0, blank=True, null=True)
     active = models.BooleanField(default=True)
 
     def __str__(self):
