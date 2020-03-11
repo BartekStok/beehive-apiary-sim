@@ -2,7 +2,10 @@ from faker import Faker
 from beehive.models import *
 from random import randint, choice
 
+from beehive.service.bee_mother_service import BeeMotherService
+
 faker = Faker("pl_PL")
+
 
 def create_fake_apiary():
     """Generate new apiary and saves to database"""
@@ -14,6 +17,7 @@ def create_fake_apiary():
         )
     return new_apiary
 
+
 def create_fake_mother():
     """Generate new mother and saves to database"""
     new_mother = BeeMother.objects.create(
@@ -22,8 +26,10 @@ def create_fake_mother():
         )
     return new_mother
 
+
 def create_fake_beehive():
     """Generate new beehive and saves to database"""
+    create_fake_apiary()
     apiary = Apiary.objects.first()
     new_beehive = BeeHive.objects.create(
         name=faker.word(),
@@ -32,14 +38,17 @@ def create_fake_beehive():
     )
     return new_beehive
 
+
 def create_fake_beefamily():
     """Generate new beefamily and saves to database"""
+    create_fake_beehive()
+    create_fake_mother()
     bee_hive = BeeHive.objects.filter(
-        beefamily__isnull=True
-    )
+        apiary__beehive__beefamily__isnull=True
+    )[0]
     bee_mother = BeeMother.objects.filter(
-        beefamily__bee_hive__isnull=True
-    )
+        beefamily__isnull=True
+    )[0]
     new_beefamily = BeeFamily.objects.create(
         name=faker.word(),
         strength=randint(5000, 50000),
