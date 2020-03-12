@@ -96,13 +96,13 @@
         <div class="button col-md-3 inline-group float-left flex-column">
             <button class="navbar-toggler" type="button">
           <span class="badge-light">
-             <a href="{% url 'beehive-make-service' beehive_id=beehive.id %}">Wykonaj przegląd</a></span>
+             <a href="{% url 'beehive-make-service' pk=beehive.id %}">Wykonaj przegląd</a></span>
             </button>
         </div>
         <div class="button col-md-3 inline-group float-left flex-column">
             <button class="navbar-toggler" type="button">
           <span class="badge-light">
-             <a href="">Zbierz miód</a></span>
+             <a href="{% url 'beehive-take-honey' pk=beehive.id %}">Zbierz miód</a></span>
             </button>
         </div>
     </main>

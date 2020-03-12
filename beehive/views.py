@@ -7,6 +7,7 @@ from beehive.forms import (ApiaryCreateForm,
                            BeeFamilyCreateForm,
                            BeeMotherCreateForm)
 from beehive.models import *
+from beehive.service.bee_hive_service import BeeHiveService
 from beehive.service.bee_mother_service import *
 
 
@@ -53,7 +54,7 @@ class BeeFamilyView(View):
 
 class BeeMotherListView(View):
     def get(self, request):
-        beemother = BeeMother.objects.all()
+        beemother = BeeMother.objects.all().order_by("id")
         return render(request, "pages/beemother_list_view.html", {"beemother": beemother})
 
 
@@ -102,11 +103,15 @@ class BeeHiveDeleteView(DeleteView):
 
 
 class BeeHiveMakeService(View):
-    def get(self, request, beehive_id):
-        beehive = BeeHive.objects.get(id=beehive_id)
-        beehive.service_date = timezone.now()
-        return redirect(f'/beehive_view/{beehive_id}')
+    def get(self, request, pk):
+        BeeHiveService.set_beehive_service_date(pk)
+        return redirect(f'/beehive_view/{pk}')
 
+
+class BeeHiveTakeHoney(View):
+    def get(self, request, pk):
+        BeeHiveService.set_honey_taken_date(pk)
+        return redirect(f'/beehive_view/{pk}')
 
 class BeeFamilyCreateView(CreateView):
     template_name = 'forms/beefamily_create_form.html'
