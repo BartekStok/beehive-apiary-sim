@@ -72,7 +72,7 @@
               <td>{{ beehive.beefamily.bee_mother.id }}</td>
               <td>{{ beehive.beefamily.bee_mother.name }}</td>
               <td>{{ beehive.beefamily.bee_mother.bee_type }}</td>
-              <td>{{ beehive.beefamily.bee_mother.age }}</td>
+              <td>{{ beehive.beefamily.bee_mother.age_days }}</td>
               <td>{{ beehive.beefamily.bee_mother.active }}</td>
               <td>#</td>
             </tr>
@@ -81,14 +81,29 @@
       </div>
 
 {#    BeeHive contorl#}
-    <div class="button">
-        <button class="active">Usuń</button>
-    </div>
-    <div class="button">
-        <button class="active">Wykonaj przegląd</button>
-    </div>
-    <div class="button">
-        <button class="active">Zbierz miód</button>
-    </div>
+        <div class="button col-md-3 inline-group float-left flex-column">
+            <button class="navbar-toggler active" type="button">
+      <span class="badge-light">
+          <a href="{% url 'beehive-update-form' pk=beehive.id %}">Edytuj Ul</a></span>
+            </button>
+        </div>
+        <div class="button col-md-3 inline-group float-left flex-column">
+            <button class="navbar-toggler active" type="button">
+          <span class="badge-light">
+              <a href="{% url 'beehive-delete-form' pk=beehive.id %}">Usuń Ul</a></span>
+            </button>
+        </div>
+        <div class="button col-md-3 inline-group float-left flex-column">
+            <button class="navbar-toggler" type="button">
+          <span class="badge-light">
+             <a href="{% url 'beehive-make-service' beehive_id=beehive.id %}">Wykonaj przegląd</a></span>
+            </button>
+        </div>
+        <div class="button col-md-3 inline-group float-left flex-column">
+            <button class="navbar-toggler" type="button">
+          <span class="badge-light">
+             <a href="">Zbierz miód</a></span>
+            </button>
+        </div>
     </main>
 {% endblock %}

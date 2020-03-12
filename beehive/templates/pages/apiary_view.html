@@ -6,52 +6,66 @@
 
 {% block table %}
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-    <h2>Lista pasiek</h2>
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Nazwa pasieki</th>
-              <th>Opis</th>
-              <th>Lokalizacja</th>
-              <th>Powierzchnia</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{ apiary.id }}</td>
-              <td>{{ apiary.name }}</td>
-              <td>{{ apiary.description }}</td>
-              <td>{{ apiary.location }}</td>
-              <td>{{ apiary.area }}</td>
-            </tr>
-          </tbody>
-        </table>
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Nazwa Ula</th>
-              <th>Typ</th>
-              <th>Ostatni przegląd</th>
-              <th>Ostatni zbiór</th>
-            </tr>
-          </thead>
-          <tbody>
-          {% for beehive in apiary.beehive_set.all|dictsort:"id" %}
-            <tr>
-              <td>{{ beehive.id }}</td>
-              <td>{{ beehive.name }}</td>
-              <td>{{ beehive.type }}</td>
-              <td>{{ beehive.service_date }}</td>
-              <td>{{ beehive.honey_taken_date }}</td>
-            </tr>
-          {% endfor %}
-          </tbody>
-        </table>
-      </div>
-      </div>
+        <h2>Lista pasiek</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nazwa pasieki</th>
+                    <th>Opis</th>
+                    <th>Lokalizacja</th>
+                    <th>Powierzchnia</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ apiary.id }}</td>
+                    <td>{{ apiary.name }}</td>
+                    <td>{{ apiary.description }}</td>
+                    <td>{{ apiary.location }}</td>
+                    <td>{{ apiary.area }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nazwa Ula</th>
+                        <th>Typ</th>
+                        <th>Ostatni przegląd</th>
+                        <th>Ostatni zbiór</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for beehive in apiary.beehive_set.all|dictsort:"id" %}
+                        <tr>
+                            <td>{{ beehive.id }}</td>
+                            <td>{{ beehive.name }}</td>
+                            <td>{{ beehive.type }}</td>
+                            <td>{{ beehive.service_date }}</td>
+                            <td>{{ beehive.honey_taken_date }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="button col-md-3 inline-group float-left flex-column">
+            <button class="navbar-toggler" type="button">
+                <span class="nav-item nav-link active">
+                    <a href="{% url 'apiary-update-form' pk=apiary.id %}">Edytuj</a>
+                </span>
+            </button>
+        </div>
+        <div class="button col-md-3 inline-group float-left flex-column">
+            <button class="navbar-toggler" type="button">
+                <span class="nav-item nav-link active">
+                    <a href="{% url 'apiary-delete-form' pk=apiary.id %}">Usuń pasiekę</a>
+                </span>
+            </button>
+        </div>
     </main>
 {% endblock %}

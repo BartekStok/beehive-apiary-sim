@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from beehive.forms import (ApiaryCreateForm,
                            BeeHiveCreateForm,
                            BeeFamilyCreateForm,
@@ -68,10 +69,43 @@ class ApiaryCreateView(CreateView):
     success_url = '/'
 
 
+class ApiaryUpdateView(UpdateView):
+    model = Apiary
+    form_class = ApiaryCreateForm
+    template_name = "forms/apiary_update_form.html"
+    success_url = reverse_lazy("apiary-list-view")
+
+
+class ApiaryDeleteView(DeleteView):
+    model = Apiary
+    template_name = "forms/apiary_delete_form.html"
+    success_url = reverse_lazy("apiary-list-view")
+
+
 class BeeHiveCreateView(CreateView):
     template_name = 'forms/beehive_create_form.html'
     form_class = BeeHiveCreateForm
     success_url = '/'
+
+
+class BeeHiveUpdateView(UpdateView):
+    model = BeeHive
+    form_class = BeeHiveCreateForm
+    template_name = "forms/beehive_update_form.html"
+    success_url = reverse_lazy("beehive-list-view")
+
+
+class BeeHiveDeleteView(DeleteView):
+    model = BeeHive
+    template_name = "forms/beehive_delete_form.html"
+    success_url = reverse_lazy("beehive-list-view")
+
+
+class BeeHiveMakeService(View):
+    def get(self, request, beehive_id):
+        beehive = BeeHive.objects.get(id=beehive_id)
+        beehive.service_date = timezone.now()
+        return redirect(f'/beehive_view/{beehive_id}')
 
 
 class BeeFamilyCreateView(CreateView):
