@@ -45,7 +45,4 @@ def set_up_beefamily():
 
 @pytest.fixture
 def set_up_all():
-    set_up_apiary()
-    set_up_beehive()
-    set_up_mother()
-    set_up_beefamily()
+    pass

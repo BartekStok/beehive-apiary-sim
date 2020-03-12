@@ -30,11 +30,11 @@ class BeeHiveCreateForm(ModelForm):
 
 
 class BeeMotherCreateForm(ModelForm):
-    age = forms.DurationField(required=False)
+    born = forms.DateInput()
 
     class Meta:
         model = BeeMother
-        fields = ['name', 'bee_type', 'age', 'active']
+        fields = ['name', 'bee_type', 'active', 'born']
 
 
 class BeeFamilyCreateForm(ModelForm):

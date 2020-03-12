@@ -6,6 +6,7 @@ from beehive.forms import (ApiaryCreateForm,
                            BeeFamilyCreateForm,
                            BeeMotherCreateForm)
 from beehive.models import *
+from beehive.service.bee_mother_service import *
 
 
 class IndexView(View):
@@ -84,3 +85,11 @@ class BeeMotherCreateView(CreateView):
     form_class = BeeMotherCreateForm
     success_url = '/'
 
+
+class DashboardService(View):
+    def get(self, request):
+        mothers = BeeMother.objects.all().order_by("id")
+        for mother in mothers:
+            BeeMotherService.set_mother_age(mother)
+            BeeMotherService.set_mother_active(mother)
+        return render(request, "pages/dashboard.html", {"mothers": mothers})

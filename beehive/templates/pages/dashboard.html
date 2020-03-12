@@ -1,31 +1,39 @@
 {% extends "base.html" %}
 
-{% block content %}
+{#{% block content %}#}
 
-{% endblock %}
+{#{% endblock %}#}
 
 {% block table %}
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-    <h2>Lista Matek</h2>
+    <h2>Serwis matek</h2>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
             <tr>
               <th>#</th>
-              <th>Nazwa</th>
-              <th>Rodzaj pszczoły</th>
-              <th>Wiek</th>
+              <th>Nazwa Matki</th>
+              <th>Typ</th>
+              <th>Rodzina</th>
+              <th>Wiek [dni]</th>
               <th>Aktywna</th>
+              <th>Stan</th>
             </tr>
           </thead>
           <tbody>
-          {% for mother in beemother %}
+          {% for mother in mothers %}
             <tr>
               <td>{{ mother.id }}</td>
-                <td><a href="/beemother_view/{{ mother.id }} " class="">{{ mother.name }}</a></td>
+              <td>{{ mother.name }}</td>
               <td>{{ mother.bee_type }}</td>
+              <td>{{ mother.beefamily }}</td>
               <td>{{ mother.age_days }}</td>
-              <td>{{ mother.active }}</td>
+                {% if mother.active %}
+                <td>Tak</td>
+                {% else %}
+                <td>Nie</td>
+                {% endif %}
+              <td>{{ mother.state }}</td>
             </tr>
           {% endfor %}
           </tbody>

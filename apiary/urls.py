@@ -32,4 +32,5 @@ urlpatterns = [
     path('beemother_create/', BeeMotherCreateView.as_view(), name="beemother-create-form"),
     path('beemother_view/', BeeMotherListView.as_view(), name="beemother-list-view"),
     path('beemother_view/<int:beemother_id>', BeeMotherView.as_view(), name="beemother-view"),
+    path('dashboard/', DashboardService.as_view(), name="dashboard")
 ]

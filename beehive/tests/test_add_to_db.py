@@ -1,8 +1,10 @@
 import pytest
 
 from beehive.models import Apiary, BeeHive, BeeMother, BeeFamily
-from beehive.tests.conftest import set_up_apiary
-from beehive.tests.utils import create_fake_apiary, create_fake_beehive, create_fake_mother, create_fake_beefamily
+from beehive.tests.utils import (create_fake_apiary,
+                                 create_fake_beehive,
+                                 create_fake_mother,
+                                 create_fake_beefamily)
 
 
 @pytest.mark.django_db
@@ -68,3 +70,5 @@ def test_add_family(set_up_beefamily):
     # Then:
     assert BeeFamily.objects.count() == family_before + 1
     assert BeeFamily.objects.count() == 6
+
+

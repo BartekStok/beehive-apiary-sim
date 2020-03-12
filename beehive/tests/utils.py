@@ -2,7 +2,6 @@ from faker import Faker
 from beehive.models import *
 from random import randint, choice
 
-from beehive.service.bee_mother_service import BeeMotherService
 
 faker = Faker("pl_PL")
 
