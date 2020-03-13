@@ -2,8 +2,8 @@ from beehive.models import *
 
 
 class BeeHiveService():
-
     """Sets service date for BeeHive"""
+
     @staticmethod
     def set_beehive_service_date(beehive_id):
         beehive = BeeHive.objects.get(id=beehive_id)
@@ -12,6 +12,7 @@ class BeeHiveService():
         return beehive
 
     """Sets honey taken date"""
+
     @staticmethod
     def set_honey_taken_date(beehive_id):
         beehive = BeeHive.objects.get(id=beehive_id)
