@@ -29,5 +29,17 @@
           </tbody>
         </table>
       </div>
+       <div class="button col-md-3 inline-group float-left flex-column">
+            <button class="navbar-toggler active" type="button">
+      <span class="badge-light">
+          <a href="{% url 'beefamily-update-view' pk=beefamily.id %}">Edytuj Rodzine</a></span>
+            </button>
+        </div>
+        <div class="button col-md-3 inline-group float-left flex-column">
+            <button class="navbar-toggler active" type="button">
+          <span class="badge-light">
+              <a href="{% url 'beefamily-delete-view' pk=beefamily.id %}">Usuń Rodzine</a></span>
+            </button>
+        </div>
     </main>
 {% endblock %}

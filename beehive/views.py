@@ -120,16 +120,43 @@ class BeeHiveTakeHoney(View):
         BeeHiveService.set_honey_taken_date(pk)
         return redirect(f'/beehive_view/{pk}')
 
+
 class BeeFamilyCreateView(CreateView):
     template_name = 'forms/beefamily_create_form.html'
     form_class = BeeFamilyCreateForm
     success_url = '/'
 
 
+class BeeFamilyUpdateView(UpdateView):
+    model = BeeFamily
+    form_class = BeeFamilyCreateForm
+    template_name = "forms/beefamily_update_form.html"
+    success_url = reverse_lazy("beefamily-list-view")
+
+
+class BeeFamilyDeleteView(DeleteView):
+    model = BeeFamily
+    template_name = "forms/beefamily_delete_form.html"
+    success_url = reverse_lazy("beefamily-list-view")
+
+
 class BeeMotherCreateView(CreateView):
     template_name = 'forms/beemother_create_form.html'
     form_class = BeeMotherCreateForm
     success_url = '/'
+
+
+class BeeMotherUpdateView(UpdateView):
+    model = BeeMother
+    form_class = BeeMotherCreateForm
+    template_name = "forms/beemother_create_form.html"
+    success_url = reverse_lazy("beemother-list-view")
+
+
+class BeeMotherDeleteView(DeleteView):
+    model = BeeMother
+    template_name = "forms/beemother_delete_form.html"
+    success_url = reverse_lazy("beemother-list-view")
 
 
 class DashboardService(View):

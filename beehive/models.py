@@ -1,15 +1,16 @@
 import math
 from datetime import datetime
 
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
-
 from beehive.constants import BEE_HIVE_TYPES, BEE_MOTHER_TYPES
 
 
 class TimeStampMixin(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     class Meta:
         abstract = True

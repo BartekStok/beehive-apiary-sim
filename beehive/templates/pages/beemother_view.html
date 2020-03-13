@@ -29,5 +29,17 @@
           </tbody>
         </table>
       </div>
+        <div class="button col-md-3 inline-group float-left flex-column">
+            <button class="navbar-toggler active" type="button">
+      <span class="badge-light">
+          <a href="{% url 'beemother-update-view' pk=beemother.id %}">Edytuj Matke</a></span>
+            </button>
+        </div>
+        <div class="button col-md-3 inline-group float-left flex-column">
+            <button class="navbar-toggler active" type="button">
+          <span class="badge-light">
+              <a href="{% url 'beemother-delete-view' pk=beemother.id %}">Usuń Matke</a></span>
+            </button>
+        </div>
     </main>
 {% endblock %}
