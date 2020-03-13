@@ -38,5 +38,8 @@ urlpatterns = [
     path('beemother_create/', BeeMotherCreateView.as_view(), name="beemother-create-form"),
     path('beemother_view/', BeeMotherListView.as_view(), name="beemother-list-view"),
     path('beemother_view/<int:beemother_id>', BeeMotherView.as_view(), name="beemother-view"),
-    path('dashboard/', DashboardService.as_view(), name="dashboard")
+    path('dashboard/', DashboardService.as_view(), name="dashboard"),
+    path('login_view/', LoginView.as_view(), name="login-view"),
+    path('add_user/', AddUserView.as_view(), name="add-user-form"),
+    path('logout_view/', LogutView.as_view(), name="logout-view"),
 ]

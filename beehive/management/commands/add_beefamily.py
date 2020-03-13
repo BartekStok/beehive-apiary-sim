@@ -1,7 +1,6 @@
 from django.core.management import BaseCommand
 from random import randint, choice
 from faker import Faker
-import pytz
 from beehive.models import *
 
 
@@ -11,9 +10,15 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         faker = Faker("pl_PL")
         for i in range(1, 10):
-            beehive = BeeHive()
-            beehive.name = f"Hive {i} - {faker.word()}"
-            beehive.type = choice(BEE_HIVE_TYPES)[0]
-            apiary = choice(Apiary.objects.all())
-            beehive.apiary = apiary
-            beehive.save()
+            beefamily = BeeFamily()
+            beefamily.name = f"Family {i} - {faker.word()}"
+            beefamily.strength = randint(10, 80000)
+            bee_mother = choice(BeeMother.objects.filter(
+                beefamily__bee_hive__isnull=True
+            ))
+            bee_hive = choice(BeeHive.objects.filter(
+                beefamily__bee_mother__isnull=True
+            ))
+            beefamily.bee_mother = bee_mother
+            beefamily.bee_hive = bee_hive
+            beefamily.save()

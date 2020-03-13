@@ -1,3 +1,6 @@
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -5,7 +8,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 from beehive.forms import (ApiaryCreateForm,
                            BeeHiveCreateForm,
                            BeeFamilyCreateForm,
-                           BeeMotherCreateForm)
+                           BeeMotherCreateForm, LoginForm, AddUserForm)
 from beehive.models import *
 from beehive.service.bee_hive_service import BeeHiveService
 from beehive.service.bee_mother_service import *
@@ -13,6 +16,7 @@ from beehive.service.bee_mother_service import *
 
 class IndexView(View):
     def get(self, request):
+        # user = User.objects.first()
         return render(request, "pages/index.html")
 
 
@@ -55,6 +59,9 @@ class BeeFamilyView(View):
 class BeeMotherListView(View):
     def get(self, request):
         beemother = BeeMother.objects.all().order_by("id")
+        for mother in beemother:
+            BeeMotherService.set_mother_age(mother)
+            BeeMotherService.set_mother_active(mother)
         return render(request, "pages/beemother_list_view.html", {"beemother": beemother})
 
 
@@ -132,3 +139,45 @@ class DashboardService(View):
             BeeMotherService.set_mother_age(mother)
             BeeMotherService.set_mother_active(mother)
         return render(request, "pages/dashboard.html", {"mothers": mothers})
+
+
+class LoginView(View):
+    def get(self, request):
+        form = LoginForm()
+        return render(request, "forms/login_form.html", {"form": form})
+    def post(self, request):
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['login']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect("/")
+            else:
+                return HttpResponse("Błąd logowania")
+
+
+class LogutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect("/")
+
+
+class AddUserView(View):
+    def get(self, request):
+        form = AddUserForm()
+        return render(request, "forms/add_user_form.html", {"form": form})
+    def post(self, request):
+        form = AddUserForm(request.POST)
+        if form.is_valid():
+            login = form.cleaned_data['login']
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            password = form.cleaned_data['password']
+            email = form.cleaned_data['email']
+            user = User.objects.create_user(username=login, email=email, password=password, first_name=first_name, last_name=last_name)
+            return redirect("/")
+        else:
+            return render(request, "forms/add_user_form.html", {"form": form})
+

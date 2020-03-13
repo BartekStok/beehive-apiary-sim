@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.forms import ModelForm, Textarea, Select
 from django import forms
 from beehive.models import Apiary, BeeHive, BeeMother, BeeFamily
@@ -49,3 +50,31 @@ class BeeFamilyCreateForm(ModelForm):
     class Meta:
         model = BeeFamily
         fields = ['name', 'strength', 'bee_mother', 'bee_hive']
+
+
+class AddUserForm(forms.Form):
+    login = forms.CharField(max_length=64)
+    password = forms.CharField(max_length=64, widget=forms.PasswordInput)
+    repeatPassword = forms.CharField(max_length=64, widget=forms.PasswordInput)
+    first_name = forms.CharField(max_length=64)
+    last_name = forms.CharField(max_length=64)
+    email = forms.EmailField()
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        repeatPassword = cleaned_data.get('repeatPassword')
+        login = cleaned_data.get('login')
+        if password != repeatPassword:
+            raise forms.ValidationError("Hasło się nie zgadza")
+        try:
+            user = User.objects.get(username=login)
+        except User.DoesNotExist:
+            return None
+        if user.username == login:
+            raise forms.ValidationError("Podany login już istnieje w bazie danych")
+
+
+class LoginForm(forms.Form):
+    login = forms.CharField(max_length=64)
+    password = forms.CharField(max_length=64, widget=forms.PasswordInput)

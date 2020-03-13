@@ -1,4 +1,15 @@
 /* globals Chart:false, feather:false */
+// $(function () {
+//   $.ajax({
+//     url: "http://127.0.0.1:8000/beehive_view/",
+//     data: {},
+//     type: "GET",
+//     dataType: "json"
+//   }).done(function (result) {
+//     console.log(result);
+//   })
+// })
+
 
 (function () {
   'use strict'
@@ -20,6 +31,10 @@
       datasets: [{
         data: [
           1,
+          // jQuery.getJSON("http://127.0.0.1:8000/beehive_view/").done(function (result) {
+          //   console.log(result);
+          // }),
+          5,
           5,
           5,
           5,
