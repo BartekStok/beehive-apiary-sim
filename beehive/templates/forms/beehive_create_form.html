@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+{#      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">#}
+{#          <div class="row">#}
+          <h1 class="h2">Dodaj Ul</h1>
+{#            </div>#}
+            <div class="row">
+                <div class="col">
+                <form action="#" method="post" class="form-group form-text">
+                {% csrf_token %}
+                {{ form.name.label }}<br>
+                {{ form.name }}<br>
+                {{ form.name.errors }}<br>
+                {{ form.type.label }}<br>
+                {{ form.type }}<br>
+                {{ form.type.errors }}<br>
+                {{ form.apiary.label }}<br>
+                {{ form.apiary }}<br>
+                {{ form.apiary.errors }}<br>
+                <input type="submit" value="Zapisz">
+                </form>
+                </div>
+            </div>
+{#      </div>#}
+    </main>
+{% endblock %}

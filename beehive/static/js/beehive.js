@@ -1,4 +1,15 @@
 /* globals Chart:false, feather:false */
+// $(function () {
+//   $.ajax({
+//     url: "http://127.0.0.1:8000/beehive_view/",
+//     data: {},
+//     type: "GET",
+//     dataType: "json"
+//   }).done(function (result) {
+//     console.log(result);
+//   })
+// })
+
 
 (function () {
   'use strict'
@@ -12,23 +23,21 @@
     type: 'line',
     data: {
       labels: [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
+        'Apiary',
+        'BeeHive',
+        'BeeFamily',
+        'BeeMother',
       ],
       datasets: [{
         data: [
-          15339,
-          21345,
-          18483,
-          24003,
-          23489,
-          24092,
-          12034
+          1,
+          // jQuery.getJSON("http://127.0.0.1:8000/beehive_view/").done(function (result) {
+          //   console.log(result);
+          // }),
+          5,
+          5,
+          5,
+          5,
         ],
         lineTension: 0,
         backgroundColor: 'transparent',

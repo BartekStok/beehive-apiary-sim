@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% endblock %}
+
+{% block table %}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <h2>Matka Pszczela</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nazwa</th>
+              <th>Rodzaj pszczoły</th>
+              <th>Wiek</th>
+              <th>Aktywna</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ beemother.id }}</td>
+                <td>{{ beemother.name }}</td>
+              <td>{{ beemother.bee_type }}</td>
+              <td>{{ beemother.age_days }}</td>
+              <td>{{ beemother.active }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+        <div class="button col-md-3 inline-group float-left flex-column">
+            <button class="navbar-toggler active" type="button">
+      <span class="badge-light">
+          <a href="{% url 'beemother-update-view' pk=beemother.id %}">Edytuj Matke</a></span>
+            </button>
+        </div>
+        <div class="button col-md-3 inline-group float-left flex-column">
+            <button class="navbar-toggler active" type="button">
+          <span class="badge-light">
+              <a href="{% url 'beemother-delete-view' pk=beemother.id %}">Usuń Matke</a></span>
+            </button>
+        </div>
+    </main>
+{% endblock %}

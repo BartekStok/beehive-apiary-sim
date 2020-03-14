@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% endblock %}
+
+{% block table %}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <h2>Rodzina Pszczela</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nazwa</th>
+              <th>Siła rodziny</th>
+              <th>Matka</th>
+              <th>Ul</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ beefamily.id }}</td>
+                <td>{{ beefamily.name }}</td>
+              <td>{{ beefamily.strength }}</td>
+              <td>{{ beefamily.bee_mother }}</td>
+              <td>{{ beefamily.bee_hive }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+       <div class="button col-md-3 inline-group float-left flex-column">
+            <button class="navbar-toggler active" type="button">
+      <span class="badge-light">
+          <a href="{% url 'beefamily-update-view' pk=beefamily.id %}">Edytuj Rodzine</a></span>
+            </button>
+        </div>
+        <div class="button col-md-3 inline-group float-left flex-column">
+            <button class="navbar-toggler active" type="button">
+          <span class="badge-light">
+              <a href="{% url 'beefamily-delete-view' pk=beefamily.id %}">Usuń Rodzine</a></span>
+            </button>
+        </div>
+    </main>
+{% endblock %}
