@@ -1,6 +1,8 @@
 import os
 import sys
 import pytest
+from django.test import Client
+
 from beehive.tests.utils import faker, create_fake_mother, create_fake_apiary, create_fake_beehive, \
     create_fake_beefamily
 
@@ -46,3 +48,9 @@ def set_up_beefamily():
 @pytest.fixture
 def set_up_all():
     pass
+
+
+@pytest.fixture
+def set_up_client():
+    client = Client()
+    return client
