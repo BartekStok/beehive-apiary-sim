@@ -9,9 +9,9 @@ from beehive.forms import (ApiaryCreateForm,
                            BeeHiveCreateForm,
                            BeeFamilyCreateForm,
                            BeeMotherCreateForm, LoginForm, AddUserForm)
-from beehive.models import *
+from beehive.models import Apiary, BeeHive, BeeMother, BeeFamily
 from beehive.service.bee_hive_service import BeeHiveService
-from beehive.service.bee_mother_service import *
+from beehive.service.bee_mother_service import BeeMotherService
 
 
 class IndexView(View):
@@ -172,6 +172,7 @@ class LoginView(View):
     def get(self, request):
         form = LoginForm()
         return render(request, "forms/login_form.html", {"form": form})
+
     def post(self, request):
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -195,6 +196,7 @@ class AddUserView(View):
     def get(self, request):
         form = AddUserForm()
         return render(request, "forms/add_user_form.html", {"form": form})
+
     def post(self, request):
         form = AddUserForm(request.POST)
         if form.is_valid():
@@ -203,8 +205,8 @@ class AddUserView(View):
             last_name = form.cleaned_data['last_name']
             password = form.cleaned_data['password']
             email = form.cleaned_data['email']
-            user = User.objects.create_user(username=login, email=email, password=password, first_name=first_name, last_name=last_name)
+            user = User.objects.create_user(username=login, email=email, password=password, first_name=first_name,
+                                            last_name=last_name)
             return redirect("/")
         else:
             return render(request, "forms/add_user_form.html", {"form": form})
-
