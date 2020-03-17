@@ -15,11 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from beehive.views import IndexView, ApiaryCreateView, ApiaryListView, LogutView, AddUserView, DashboardService, \
-    BeeMotherDeleteView, BeeMotherUpdateView, BeeMotherView, BeeMotherListView, BeeMotherCreateView, \
-    BeeFamilyDeleteView, BeeFamilyUpdateView, BeeFamilyView, BeeFamilyListView, BeeFamilyCreateView, BeeHiveTakeHoney, \
-    BeeHiveMakeService, BeeHiveDeleteView, BeeHiveUpdateView, BeeHiveView, BeeHiveListView, BeeHiveCreateView, \
-    ApiaryDeleteView, ApiaryUpdateView, ApiaryView, LoginView
+from beehive.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
