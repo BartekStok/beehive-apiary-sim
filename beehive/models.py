@@ -41,7 +41,7 @@ class BeeMother(TimeStampMixin):
     name = models.CharField(max_length=64)
     bee_type = models.CharField(max_length=64, choices=BEE_MOTHER_TYPES)
     born = models.DateTimeField(default=timezone.now)
-    age = models.DurationField(blank=True, null=True)
+    age = models.DurationField(blank=True, default=(timezone.now() - timezone.now()))
     active = models.BooleanField(default=True)
 
     def __str__(self):
