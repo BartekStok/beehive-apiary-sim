@@ -1,4 +1,6 @@
-from beehive.models import *
+from django.utils import timezone
+from beehive.models import BeeHive
+
 
 
 class BeeHiveService():
