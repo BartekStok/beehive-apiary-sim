@@ -1,1 +1,1 @@
-web: gunicorn apiary.apiary.wsgi --log-file -
+web: gunicorn apiary.wsgi --log-file -
