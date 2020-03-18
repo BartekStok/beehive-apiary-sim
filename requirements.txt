@@ -2,4 +2,6 @@ django==2.2.7
 psycopg2-binary
 pytest
 pytest-django
+django-heroku
+gunicorn
 
