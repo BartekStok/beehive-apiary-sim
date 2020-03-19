@@ -1,4 +1,4 @@
- [![BeeHive](staticfiles/images/My_bee_1.png)](https://apiary-beehive-sim.herokuapp.com/) 
+ [![BeeHive](staticfiles/images/My_bee_small.png)](https://apiary-beehive-sim.herokuapp.com/) 
 
 # Bee Hive and Apiary simulation
 
@@ -32,13 +32,13 @@ $ python manage.py runserver
 ```
 
 Then visit `http://localhost:8000` to view the app. Alternatively you
-can use gunicorn to run the server locally:
+can use gunicorn to run the server locally.
 
 
 ## License
 
 This project is licensed under the MIT License 
 
-## Acknowledgments
+
 
 - Copyright 2020 © Bartłomiej Stokłosa
