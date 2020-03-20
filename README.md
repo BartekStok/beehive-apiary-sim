@@ -8,7 +8,7 @@ Made on completion of a programming course Back-End Python Developer.
 
 ## Getting started
 
-Try this app online on Heroku, just click on this lovely Bee above...
+Try this app online on Heroku, **just click on this lovely Bee above...**
 
 ### Prerequisites
 
