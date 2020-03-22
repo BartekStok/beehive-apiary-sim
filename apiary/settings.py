@@ -22,12 +22,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '-y8b4qc3l^mhd41j0#kc4!2n20in24)&1rcf!(3sytk$5zh0rj'
+# SECRET_KEY = '-y8b4qc3l^mhd41j0#kc4!2n20in24)&1rcf!(3sytk$5zh0rj'
+
+with open('apiary/secret_key.txt') as f:
+    SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'secure-lowlands-10766.herokuapp.com']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'apiary-beehive-sim.herokuapp.com']
 
 
 # Application definition
@@ -78,16 +81,12 @@ WSGI_APPLICATION = 'apiary.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'HOST': '127.0.0.1',
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'beehive',
-        'USER': 'postgres',
-        'PASSWORD': 'coderslab',
-    }
-}
-
+try:
+    from apiary.local_settings import DATABASES
+except ModuleNotFoundError:
+    print("Brak konfiguracji bazy danych w pliku local_settings.py")
+    print("Uzupełnij dane i spróbuj ponownie")
+    exit(0)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -132,5 +131,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'beehive/static')]
 
 django_heroku.settings(locals())
-
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
