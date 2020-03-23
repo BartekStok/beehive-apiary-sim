@@ -100,7 +100,8 @@ class ApiaryDeleteView(LoginRequiredMixin, DeleteView):
 
 class BeeHiveCreateView(LoginRequiredMixin, FormView):
     def get(self, request):
-        form = BeeHiveCreateForm(initial={"user": request.user})
+        apiary = Apiary.objects.filter(user_id=request.user)
+        form = BeeHiveCreateForm(initial={"user": request.user, "apiary": apiary})
         return render(request, 'forms/beehive_create_form.html', {"form": form})
     def post(self, request):
         form = BeeHiveCreateForm(request.POST)

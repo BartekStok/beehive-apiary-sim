@@ -22,7 +22,6 @@ class ApiaryCreateForm(ModelForm):
 
 
 class BeeHiveCreateForm(ModelForm):
-    apiary = Apiary.objects.filter()
     class Meta:
         model = BeeHive
         fields = ['name', 'type', 'apiary', 'user']
