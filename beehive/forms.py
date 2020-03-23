@@ -8,7 +8,7 @@ from beehive.constants import BEE_HIVE_TYPES, BEE_MOTHER_TYPES
 class ApiaryCreateForm(ModelForm):
     class Meta:
         model = Apiary
-        fields = ['name', 'description', 'location', 'area']
+        fields = ['name', 'description', 'location', 'area', "user"]
         widgets = {
             'description': Textarea(attrs={'cols': 50, 'rows': 3}),
             'location': Textarea(attrs={'cols': 50, 'rows': 3})
@@ -22,12 +22,10 @@ class ApiaryCreateForm(ModelForm):
 
 
 class BeeHiveCreateForm(ModelForm):
+    apiary = Apiary.objects.filter()
     class Meta:
         model = BeeHive
-        fields = ['name', 'type', 'apiary']
-        # widgets = {
-        #     'type': Select(choices=BEE_HIVE_TYPES)
-        # }
+        fields = ['name', 'type', 'apiary', 'user']
 
 
 class BeeMotherCreateForm(ModelForm):
@@ -35,7 +33,7 @@ class BeeMotherCreateForm(ModelForm):
 
     class Meta:
         model = BeeMother
-        fields = ['name', 'bee_type', 'active', 'born']
+        fields = ['name', 'bee_type', 'active', 'born', 'user']
 
 
 class BeeFamilyCreateForm(ModelForm):
@@ -49,7 +47,7 @@ class BeeFamilyCreateForm(ModelForm):
 
     class Meta:
         model = BeeFamily
-        fields = ['name', 'strength', 'bee_mother', 'bee_hive']
+        fields = ['name', 'strength', 'bee_mother', 'bee_hive', 'user']
 
 
 class AddUserForm(forms.Form):
