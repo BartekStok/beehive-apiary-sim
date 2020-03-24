@@ -197,7 +197,8 @@ class BeeMotherDeleteView(LoginRequiredMixin, DeleteView):
 
 class DashboardService(LoginRequiredMixin, View):
     def get(self, request):
-        mothers = BeeMother.objects.all().order_by("id")
+        user = User.objects.get(id=request.user.id)
+        mothers = BeeMother.objects.filter(user_id=user.id).order_by("id")
         for mother in mothers:
             BeeMotherService.set_mother_age(mother)
             BeeMotherService.set_mother_active(mother)
