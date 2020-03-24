@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.forms import ModelForm, Textarea, Select, Form
 from django import forms
 from beehive.models import Apiary, BeeHive, BeeMother, BeeFamily
@@ -40,14 +41,13 @@ class BeeMotherCreateForm(ModelForm):
 
 
 class BeeFamilyCreateForm(ModelForm):
-    bee_mother = forms.ModelChoiceField(
-        queryset=BeeMother.objects.filter(beefamily__bee_hive__isnull=True),
-        required=False
-    )
-    bee_hive = forms.ModelChoiceField(
-        queryset=BeeHive.objects.filter(beefamily__isnull=True)
-    )
-
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super(BeeFamilyCreateForm, self).__init__(*args, **kwargs)
+        self.fields['bee_mother'].queryset = BeeMother.objects.filter(
+            Q(user_id=self.user.id) & Q(beefamily__bee_hive__isnull=True))
+        self.fields['bee_hive'].queryset = BeeHive.objects.filter(
+            Q(user_id=self.user.id) & Q(beefamily__isnull=True))
     class Meta:
         model = BeeFamily
         fields = ['name', 'strength', 'bee_mother', 'bee_hive', 'user']
