@@ -22,7 +22,7 @@ class IndexView(View):
 
 class ApiaryListView(LoginRequiredMixin, View):
     def get(self, request):
-        user = User.objects.get(username=request.user)
+        user = User.objects.get(username=request.user.username)
         apiary = Apiary.objects.filter(user_id=user.id).order_by("id")
         return render(request, "pages/apiary_list_view.html", {"apiary": apiary})
 
@@ -35,7 +35,8 @@ class ApiaryView(LoginRequiredMixin, View):
 
 class BeeHiveListView(LoginRequiredMixin, View):
     def get(self, request):
-        beehive = BeeHive.objects.all().order_by("id")
+        user = User.objects.get(username=request.user.username)
+        beehive = BeeHive.objects.filter(user_id=user.id).order_by("id")
         return render(request, "pages/beehive_list_view.html", {"beehive": beehive})
 
 
@@ -47,7 +48,8 @@ class BeeHiveView(LoginRequiredMixin, View):
 
 class BeeFamilyListView(LoginRequiredMixin, View):
     def get(self, request):
-        beefamily = BeeFamily.objects.all().order_by("id")
+        user = User.objects.get(id=request.user.id)
+        beefamily = BeeFamily.objects.filter(user_id=user.id).order_by("id")
         return render(request, "pages/beefamily_list_view.html", {"beefamily": beefamily})
 
 
@@ -59,7 +61,8 @@ class BeeFamilyView(LoginRequiredMixin, View):
 
 class BeeMotherListView(LoginRequiredMixin, View):
     def get(self, request):
-        beemother = BeeMother.objects.all().order_by("id")
+        user = User.objects.get(id=request.user.id)
+        beemother = BeeMother.objects.filter(user_id=user.id).order_by("id")
         for mother in beemother:
             BeeMotherService.set_mother_age(mother)
             BeeMotherService.set_mother_active(mother)
@@ -100,8 +103,8 @@ class ApiaryDeleteView(LoginRequiredMixin, DeleteView):
 
 class BeeHiveCreateView(LoginRequiredMixin, FormView):
     def get(self, request):
-        apiary = Apiary.objects.filter(user_id=request.user)
-        form = BeeHiveCreateForm(initial={"user": request.user, "apiary": apiary})
+        form = BeeHiveCreateForm(initial={"user": request.user})
+        form.fields['apiary'].queryset = Apiary.objects.filter(user_id=request.user)
         return render(request, 'forms/beehive_create_form.html', {"form": form})
     def post(self, request):
         form = BeeHiveCreateForm(request.POST)
@@ -109,7 +112,7 @@ class BeeHiveCreateView(LoginRequiredMixin, FormView):
             form.save()
             return redirect('beehive-list-view')
         else:
-            return HttpResponse("Błąd")
+            return HttpResponse("Błąd formularza")
 
 
 class BeeHiveUpdateView(LoginRequiredMixin, UpdateView):
@@ -137,10 +140,20 @@ class BeeHiveTakeHoney(View):
         return redirect(f'/beehive_view/{pk}')
 
 
-class BeeFamilyCreateView(LoginRequiredMixin, CreateView):
-    template_name = 'forms/beefamily_create_form.html'
-    form_class = BeeFamilyCreateForm
-    success_url = '/'
+class BeeFamilyCreateView(LoginRequiredMixin, FormView):
+    def get(self, request, *args, **kwargs):
+        form = BeeFamilyCreateForm(initial={"user": request.user})
+        form.fields['bee_mother'].queryset = BeeMother.objects.filter(user_id=request.user)
+        form.fields['bee_hive'].queryset = BeeHive.objects.filter(user_id=request.user)
+        return render(request, "forms/beefamily_create_form.html", {"form": form})
+    def post(self, request, *args, **kwargs):
+        form = BeeFamilyCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('beefamily-list-view')
+        else:
+            return render(request, "forms/beefamily_create_form.html", {"form": form})
+
 
 
 class BeeFamilyUpdateView(LoginRequiredMixin, UpdateView):
@@ -156,10 +169,17 @@ class BeeFamilyDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("beefamily-list-view")
 
 
-class BeeMotherCreateView(LoginRequiredMixin, CreateView):
-    template_name = 'forms/beemother_create_form.html'
-    form_class = BeeMotherCreateForm
-    success_url = '/'
+class BeeMotherCreateView(LoginRequiredMixin, FormView):
+    def get(self, request, *args, **kwargs):
+        form = BeeMotherCreateForm(initial={"user": request.user})
+        return render(request, "forms/beemother_create_form.html", {"form": form})
+    def post(self, request, *args, **kwargs):
+        form = BeeMotherCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('beemother-list-view')
+        else:
+            return render(request, "forms/beemother_create_form.html", {"form": form})
 
 
 class BeeMotherUpdateView(LoginRequiredMixin, UpdateView):
