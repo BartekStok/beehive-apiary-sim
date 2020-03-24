@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.forms import ModelForm, Textarea, Select
+from django.forms import ModelForm, Textarea, Select, Form
 from django import forms
 from beehive.models import Apiary, BeeHive, BeeMother, BeeFamily
 from beehive.constants import BEE_HIVE_TYPES, BEE_MOTHER_TYPES
@@ -21,7 +21,11 @@ class ApiaryCreateForm(ModelForm):
         }
 
 
-class BeeHiveCreateForm(ModelForm):
+class BeeHiveCreateForm(ModelForm, Form):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super(BeeHiveCreateForm, self).__init__(*args, **kwargs)
+        self.fields['apiary'].queryset = Apiary.objects.filter(user_id=self.user.id)
     class Meta:
         model = BeeHive
         fields = ['name', 'type', 'apiary', 'user']
