@@ -4,11 +4,14 @@ $(document).ready(function () {
     url: "http://127.0.0.1:8000/beehive_view/",
     data: {},
     type: "GET",
-    // dataType: "json"
-  }).done(function (result) {
-    console.log((result));
+  }).done(function i(result) {
+    var my_data = $("<div />").append(result).find("#beehive-table");
+    var beehive_count = my_data.find("tr").length - 1;
+    console.log(beehive_count);
+    return beehive_count
   });
-});
+})
+
 
 (function () {
   'use strict';
