@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
-from django.forms import ModelForm, Textarea, Select
+from django.db.models import Q
+from django.forms import ModelForm, Textarea, Select, Form
 from django import forms
 from beehive.models import Apiary, BeeHive, BeeMother, BeeFamily
 from beehive.constants import BEE_HIVE_TYPES, BEE_MOTHER_TYPES
@@ -8,7 +9,7 @@ from beehive.constants import BEE_HIVE_TYPES, BEE_MOTHER_TYPES
 class ApiaryCreateForm(ModelForm):
     class Meta:
         model = Apiary
-        fields = ['name', 'description', 'location', 'area']
+        fields = ['name', 'description', 'location', 'area', "user"]
         widgets = {
             'description': Textarea(attrs={'cols': 50, 'rows': 3}),
             'location': Textarea(attrs={'cols': 50, 'rows': 3})
@@ -21,13 +22,14 @@ class ApiaryCreateForm(ModelForm):
         }
 
 
-class BeeHiveCreateForm(ModelForm):
+class BeeHiveCreateForm(ModelForm, Form):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super(BeeHiveCreateForm, self).__init__(*args, **kwargs)
+        self.fields['apiary'].queryset = Apiary.objects.filter(user_id=self.user.id)
     class Meta:
         model = BeeHive
-        fields = ['name', 'type', 'apiary']
-        # widgets = {
-        #     'type': Select(choices=BEE_HIVE_TYPES)
-        # }
+        fields = ['name', 'type', 'apiary', 'user']
 
 
 class BeeMotherCreateForm(ModelForm):
@@ -35,21 +37,38 @@ class BeeMotherCreateForm(ModelForm):
 
     class Meta:
         model = BeeMother
-        fields = ['name', 'bee_type', 'active', 'born']
+        fields = ['name', 'bee_type', 'active', 'born', 'user']
 
 
 class BeeFamilyCreateForm(ModelForm):
-    bee_mother = forms.ModelChoiceField(
-        queryset=BeeMother.objects.filter(beefamily__bee_hive__isnull=True),
-        required=False
-    )
-    bee_hive = forms.ModelChoiceField(
-        queryset=BeeHive.objects.filter(beefamily__isnull=True)
-    )
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super(BeeFamilyCreateForm, self).__init__(*args, **kwargs)
+        self.fields['bee_mother'].queryset = BeeMother.objects.filter(
+            Q(user_id=self.user.id) & Q(beefamily__bee_hive__isnull=True)
+        )
+        self.fields['bee_hive'].queryset = BeeHive.objects.filter(
+            Q(user_id=self.user.id) & Q(beefamily__isnull=True)
+        )
+    class Meta:
+        model = BeeFamily
+        fields = ['name', 'strength', 'bee_mother', 'bee_hive', 'user']
+
+
+class BeeFamilyUpdateForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super(BeeFamilyUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['bee_mother'].queryset = BeeMother.objects.filter(
+            user_id=self.user.id
+        )
+        self.fields['bee_hive'].queryset = BeeHive.objects.filter(
+            user_id=self.user.id
+        )
 
     class Meta:
         model = BeeFamily
-        fields = ['name', 'strength', 'bee_mother', 'bee_hive']
+        fields = ['name', 'strength', 'bee_mother', 'bee_hive', 'user']
 
 
 class AddUserForm(forms.Form):

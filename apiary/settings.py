@@ -27,7 +27,7 @@ with open('apiary/secret_key.txt') as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'apiary-beehive-sim.herokuapp.com']
 
@@ -105,6 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_URL = ('/login_view/')
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/

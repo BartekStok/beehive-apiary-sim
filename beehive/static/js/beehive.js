@@ -1,23 +1,12 @@
 /* globals Chart:false, feather:false */
-// $(function () {
-//   $.ajax({
-//     url: "http://127.0.0.1:8000/beehive_view/",
-//     data: {},
-//     type: "GET",
-//     dataType: "json"
-//   }).done(function (result) {
-//     console.log(result);
-//   })
-// })
-
 
 (function () {
   'use strict'
 
-  feather.replace()
+  feather.replace();
 
   // Graphs
-  var ctx = document.getElementById('myChart')
+  var ctx = document.getElementById('myChart');
   // eslint-disable-next-line no-unused-vars
   var myChart = new Chart(ctx, {
     type: 'line',
@@ -31,10 +20,6 @@
       datasets: [{
         data: [
           1,
-          // jQuery.getJSON("http://127.0.0.1:8000/beehive_view/").done(function (result) {
-          //   console.log(result);
-          // }),
-          5,
           5,
           5,
           5,
