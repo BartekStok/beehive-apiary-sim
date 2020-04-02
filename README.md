@@ -10,12 +10,15 @@ Made on completion of a programming course Back-End Python Developer.
 
 Try this app online on Heroku, just click on this lovely Bee above...
 
-### Prerequisites
+### Used Technologies:
 
-What You need to have:
 
 ```
 $ Python 3.6
+$ Django
+$ PostgreSQL
+$ Javascript
+$ Bootstrap
 ```
 
 ### Installing
