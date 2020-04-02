@@ -1,23 +1,22 @@
 /* globals Chart:false, feather:false */
 
 (function () {
-  'use strict'
+  'use strict';
 
   feather.replace();
 
   // Graphs
   var ctx = document.getElementById('myChart');
   var quantity = document.querySelector('main');
-  console.log(quantity.dataset.apiary);
   // eslint-disable-next-line no-unused-vars
   var myChart = new Chart(ctx, {
     type: 'line',
     data: {
       labels: [
-        'Apiary',
-        'BeeHive',
-        'BeeFamily',
-        'BeeMother',
+        'Pasieka',
+        'Ule',
+        'Rodziny pszczele',
+        'Matki',
       ],
       datasets: [{
         data: [
@@ -42,8 +41,9 @@
         }]
       },
       legend: {
-        display: false
+        display: false,
+        message: "Ilość Pasiek, Uli i Pszczół"
       }
     }
   })
-}())
+}());
