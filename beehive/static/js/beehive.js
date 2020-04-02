@@ -7,6 +7,8 @@
 
   // Graphs
   var ctx = document.getElementById('myChart');
+  var quantity = document.querySelector('main');
+  console.log(quantity.dataset.apiary);
   // eslint-disable-next-line no-unused-vars
   var myChart = new Chart(ctx, {
     type: 'line',
@@ -19,10 +21,10 @@
       ],
       datasets: [{
         data: [
-          1,
-          5,
-          5,
-          5,
+          quantity.dataset.apiary,
+          quantity.dataset.beehive,
+          quantity.dataset.beefamily,
+          quantity.dataset.mother,
         ],
         lineTension: 0,
         backgroundColor: 'transparent',
