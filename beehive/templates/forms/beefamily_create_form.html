@@ -8,7 +8,7 @@
 {#            </div>#}
             <div class="row">
                 <div class="col">
-                <form action="#" method="post" class="form-group form-text">
+                <form action="#" method="post" class="form-group form-text col-md-6">
                 {% csrf_token %}
                 {{ form.name.label }}<br>
                 {{ form.name }}<br>
@@ -23,7 +23,7 @@
                 {{ form.bee_hive }}<br>
                 {{ form.bee_hive.errors }}<br>
                 {{ form.user.as_hidden }}
-                <input type="submit" value="Zapisz">
+                <input type="submit" value="Zapisz" class="form-control col-md-3">
                 </form>
                 </div>
             </div>

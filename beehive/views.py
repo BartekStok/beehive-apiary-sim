@@ -212,10 +212,19 @@ class DashboardService(LoginRequiredMixin, View):
     def get(self, request):
         user = User.objects.get(id=request.user.id)
         mothers = BeeMother.objects.filter(user_id=user.id).order_by("id")
+        beefamily = BeeFamily.objects.filter(user_id=user.id).order_by("id")
+        beehive = BeeHive.objects.filter(user_id=user.id).order_by("id")
+        apiary = Apiary.objects.filter(user_id=user.id).order_by("id")
         for mother in mothers:
             BeeMotherService.set_mother_age(mother)
             BeeMotherService.set_mother_active(mother)
-        return render(request, "pages/dashboard.html", {"mothers": mothers})
+        ctx = {
+            "mothers": mothers,
+            "beefamily": beefamily,
+            "beehive": beehive,
+            "apiary": apiary
+        }
+        return render(request, "pages/dashboard.html", ctx)
 
 
 class LoginView(View):
@@ -231,7 +240,7 @@ class LoginView(View):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect("/")
+                return redirect("dashboard")
             else:
                 return HttpResponse("Błąd logowania")
 
