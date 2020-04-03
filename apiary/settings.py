@@ -94,7 +94,7 @@ except ModuleNotFoundError:
             'PASSWORD': os.environ.get('DB_PASSWORD'),
         }
     }
-    exit(0)
+    # exit(0)
 
 
 # Password validation
