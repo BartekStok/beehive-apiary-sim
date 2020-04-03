@@ -8,14 +8,17 @@ Made on completion of a programming course Back-End Python Developer.
 
 ## Getting started
 
-Try this app online on Heroku, just click on this lovely Bee above...
+Try this app online on Heroku, just click [here](https://apiary-beehive-sim.herokuapp.com/) or on this lovely Bee above...
 
-### Prerequisites
+### Used Technologies:
 
-What You need to have:
 
 ```
 $ Python 3.6
+$ Django
+$ PostgreSQL
+$ Javascript
+$ Bootstrap
 ```
 
 ### Installing
