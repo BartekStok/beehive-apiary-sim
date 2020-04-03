@@ -7,6 +7,11 @@ from beehive.constants import BEE_HIVE_TYPES, BEE_MOTHER_TYPES
 
 
 class ApiaryCreateForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ApiaryCreateForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
     class Meta:
         model = Apiary
         fields = ['name', 'description', 'location', 'area', "user"]
@@ -27,6 +32,9 @@ class BeeHiveCreateForm(ModelForm, Form):
         self.user = kwargs.pop("user")
         super(BeeHiveCreateForm, self).__init__(*args, **kwargs)
         self.fields['apiary'].queryset = Apiary.objects.filter(user_id=self.user.id)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
     class Meta:
         model = BeeHive
         fields = ['name', 'type', 'apiary', 'user']
@@ -34,6 +42,11 @@ class BeeHiveCreateForm(ModelForm, Form):
 
 class BeeMotherCreateForm(ModelForm):
     born = forms.DateInput()
+
+    def __init__(self, *args, **kwargs):
+        super(BeeMotherCreateForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
 
     class Meta:
         model = BeeMother
@@ -50,6 +63,9 @@ class BeeFamilyCreateForm(ModelForm):
         self.fields['bee_hive'].queryset = BeeHive.objects.filter(
             Q(user_id=self.user.id) & Q(beefamily__isnull=True)
         )
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
     class Meta:
         model = BeeFamily
         fields = ['name', 'strength', 'bee_mother', 'bee_hive', 'user']
@@ -65,6 +81,8 @@ class BeeFamilyUpdateForm(ModelForm):
         self.fields['bee_hive'].queryset = BeeHive.objects.filter(
             user_id=self.user.id
         )
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
 
     class Meta:
         model = BeeFamily
@@ -93,7 +111,17 @@ class AddUserForm(forms.Form):
         if user.username == login:
             raise forms.ValidationError("Podany login już istnieje w bazie danych")
 
+    def __init__(self, *args, **kwargs):
+        super(AddUserForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+
 
 class LoginForm(forms.Form):
     login = forms.CharField(max_length=64)
     password = forms.CharField(max_length=64, widget=forms.PasswordInput)
+
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
