@@ -1,4 +1,4 @@
- [![BeeHive](staticfiles/images/My_bee_small.png)](https://apiary-beehive-sim.herokuapp.com/) 
+ [![BeeHive](beehive/static/images/My_bee_small.png)](https://apiary-beehive-sim.herokuapp.com/) 
 
 # Bee Hive and Apiary simulation
 
